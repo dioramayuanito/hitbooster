@@ -1,2 +1,2 @@
 # hitbooster
-Make a lot of Hit now
+Make a lot of Hits now
