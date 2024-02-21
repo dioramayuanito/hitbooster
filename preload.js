@@ -21,6 +21,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
 let scrollLoop = 0;
 let scrollSIHandler = null;
+let scrollHeight = 200;
+let scrollInterval = 750;
 
 window.addEventListener('load', () => {
   let siteURL = location.href;
@@ -32,15 +34,15 @@ window.addEventListener('load', () => {
       location.reload();
     } else if (scenario === '1') {
       var scrollSIHandler = setInterval(() => {
-        if ((scrollLoop * 1000) > document.body.scrollHeight) {
-          window.scrollTo(scrollLoop * 1000, document.body.scrollHeight);
+        if ((scrollLoop * scrollHeight) < document.body.scrollHeight) {
+          window.scrollTo(scrollLoop * scrollHeight, document.body.scrollHeight);
           scrollLoop++;
         } else {
           scrollLoop = 0;
           clearInterval(scrollSIHandler);
           location.reload();
         }
-      }, 500);
+      }, scrollInterval);
     }
   }
 });
