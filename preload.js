@@ -19,11 +19,28 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+let scrollLoop = 0;
+let scrollSIHandler = null;
+
 window.addEventListener('load', () => {
   let siteURL = location.href;
   console.log('hitbooster window onload siteURL', siteURL);
   if (siteURL.indexOf('file:') === -1) {
     let scenario = ipcRenderer.sendSync('getScenario');
     console.log('hitbooster window onload scenario', scenario);
+    if (scenario === '0') {
+      location.reload();
+    } else if (scenario === '1') {
+      var scrollSIHandler = setInterval(() => {
+        if ((scrollLoop * 1000) > document.body.scrollHeight) {
+          window.scrollTo(scrollLoop * 1000, document.body.scrollHeight);
+          scrollLoop++;
+        } else {
+          scrollLoop = 0;
+          clearInterval(scrollSIHandler);
+          location.reload();
+        }
+      }, 500);
+    }
   }
 });
