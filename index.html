@@ -23,9 +23,11 @@
 
       function submitHitBooster() {
         var siteURL = document.getElementById('siteURL').value;
-        console.log('submitHitBooster siteURL', siteURL);
+        console.log('hitbooster submitHitBooster siteURL', siteURL);
         var hostname = getHostname(siteURL);
-        console.log('submitHitBooster hostname', hostname);
+        console.log('hitbooster submitHitBooster hostname', hostname);
+        var scenarioEl = document.getElementById('scenario');
+        var scenarioVal = scenarioEl.options[scenarioEl.selectedIndex].value;
         if ( (hostname.indexOf('detik.com') !== -1) ||
         (hostname.indexOf('cnnindonesia.com') !== -1) ||
         (hostname.indexOf('cnbcindonesia.com') !== -1) ||
@@ -38,7 +40,9 @@
           if (typeof window['require'] !== "undefined") {
             let electron = window['require']("electron");
             let ipcRenderer = electron.ipcRenderer;
-            ipcRenderer.send('loadURL', siteURL);
+            ipcRenderer.send('setScenario', scenarioVal);
+            ipcRenderer.send('setSiteURL', siteURL);
+            ipcRenderer.send('loadSiteURL', siteURL);
           }
         } else {
           alert('Please use Site URL from detikNetwork Family !');
@@ -48,39 +52,39 @@
       function chooseSite(name) {
         switch(name) {
           case 'detik':
-            console.log('chooseSite detik');
+            console.log('hitbooster chooseSite detik');
             document.getElementById('siteURL').value = 'https://www.detik.com';
             break;
           case 'cnn':
-            console.log('chooseSite cnn');
+            console.log('hitbooster chooseSite cnn');
             document.getElementById('siteURL').value = 'https://www.cnnindonesia.com';
             break;
           case 'cnbc':
-            console.log('chooseSite cnbc');
+            console.log('hitbooster chooseSite cnbc');
             document.getElementById('siteURL').value = 'https://www.cnbcindonesia.com';
             break;
           case 'cxo':
-            console.log('chooseSite cxo');
+            console.log('hitbooster chooseSite cxo');
             document.getElementById('siteURL').value = 'https://www.cxomedia.com';
             break;
           case 'haibunda':
-            console.log('chooseSite haibunda');
+            console.log('hitbooster chooseSite haibunda');
             document.getElementById('siteURL').value = 'https://www.haibunda.com';
             break;
           case 'insertlive':
-            console.log('chooseSite insertlive');
+            console.log('hitbooster chooseSite insertlive');
             document.getElementById('siteURL').value = 'https://www.insertlive.com';
             break;
           case 'beautynesia':
-            console.log('chooseSite beautynesia');
+            console.log('hitbooster chooseSite beautynesia');
             document.getElementById('siteURL').value = 'https://www.beautynesia.id';
             break;
           case 'femaledaily':
-            console.log('chooseSite femaledaily');
+            console.log('hitbooster chooseSite femaledaily');
             document.getElementById('siteURL').value = 'https://www.femaledaily.com';
             break;
           default :
-            console.log('chooseSite default detik');
+            console.log('hitbooster chooseSite default detik');
             document.getElementById('siteURL').value = 'https://www.detik.com';
         }
       }

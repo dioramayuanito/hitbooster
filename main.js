@@ -6,6 +6,8 @@ const { app, ipcMain, BrowserWindow } = require('electron')
 const path = require('node:path')
 
 let mainWindow = null;
+let scenario = null;
+let siteURL = 'file:///';
 
 const createWindow = () => {
   // Create the browser window.
@@ -19,10 +21,6 @@ const createWindow = () => {
       nodeIntegration: true,
       preload: path.join(__dirname, 'preload.js')
     }
-  });
-
-  ipcMain.on('loadURL', (event, args) => {
-    mainWindow.loadURL(args);
   });
 
   // and load the index.html of the app.
@@ -46,6 +44,26 @@ app.whenReady().then(() => {
     // dock icon is clicked and there are no other windows open.
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
   })
+
+  ipcMain.on('setScenario', (event, args) => {
+    scenario = args;
+  });
+  
+  ipcMain.on('getScenario', (event) => {
+    event.returnValue = scenario;
+  });
+  
+  ipcMain.on('getSiteURL', (event) => {
+    event.returnValue = siteURL;
+  });
+  
+  ipcMain.on('loadSiteURL', (event, args) => {
+    mainWindow.loadURL(args);
+  });
+  
+  ipcMain.on('setSiteURL', (event, args) => {
+    siteURL = args;
+  });
 })
 
 // Quit when all windows are closed, except on macOS. There, it's common
