@@ -8,6 +8,20 @@ let scrollHeight = 250;
 let scrollInterval = 750;
 let reloadTimeout = 2000;
 
+function clearStorage() {
+  try {
+    console.log('hitbooster clearStorage');
+    cookieStore.getAll().then(cookies => cookies.forEach(cookie => {
+      console.log('Cookie deleted:', cookie);
+      cookieStore.delete(cookie.name);
+    }));
+    localStorage.clear();
+    sessionStorage.clear();
+  } catch (ex) {
+    console.log('hitbooster clearStorage got an error', ex);
+  }
+};
+
 window.addEventListener('DOMContentLoaded', () => {
   let siteURL = location.href;
   console.log('hitbooster window DOMContentLoaded siteURL', siteURL);
@@ -23,10 +37,17 @@ window.addEventListener('DOMContentLoaded', () => {
   } else {
     // for siteURL
     let scenario = ipcRenderer.sendSync('getScenario');
+    let pvuv = ipcRenderer.sendSync('getPvuv');
     //console.log('hitbooster window DOMContentLoaded scenario', scenario);
     if (scenario === '2') {
       setTimeout(() => {
         console.log('hitbooster window DOMContentLoaded scenario 2 reload');
+        if (pvuv === '1') {
+          clearStorage();
+        }
+        if (pvuv === '1') {
+          clearStorage();
+        }
         location.reload(true);
       }, reloadTimeout);
     } else if (scenario === '3') {
@@ -56,10 +77,14 @@ window.addEventListener('load', () => {
   if (siteURL.indexOf('file:') === -1) {
     // for siteURL
     let scenario = ipcRenderer.sendSync('getScenario');
+    let pvuv = ipcRenderer.sendSync('getPvuv');
     //console.log('hitbooster window load scenario', scenario);
     if (scenario === '0') {
       setTimeout(() => {
         console.log('hitbooster window load scenario 0 reload');
+        if (pvuv === '1') {
+          clearStorage();
+        }
         location.reload(true);
       }, reloadTimeout);
     } else if (scenario === '1') {
@@ -75,6 +100,9 @@ window.addEventListener('load', () => {
           console.log('hitbooster window load scenario 1 end scroll');
           setTimeout(() => {
             console.log('hitbooster window load scenario 1 reload');
+            if (pvuv === '1') {
+              clearStorage();
+            }
             location.reload(true);
           }, reloadTimeout);
         }
