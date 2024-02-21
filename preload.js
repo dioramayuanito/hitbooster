@@ -32,7 +32,7 @@ window.addEventListener('load', () => {
     console.log('hitbooster window onload scenario', scenario);
     if (scenario === '0') {
       console.log('hitbooster window onload scenario 0 reload');
-      location.reload();
+      location.reload(true);
     } else if (scenario === '1') {
       window.scrollTo({left:0, top:0});
       var scrollSIHandler = setInterval(() => {
@@ -44,7 +44,7 @@ window.addEventListener('load', () => {
           scrollLoop = 0;
           clearInterval(scrollSIHandler);
           console.log('hitbooster window onload scenario 1 end scroll');
-          location.reload();
+          location.reload(true);
         }
       }, scrollInterval);
     }
