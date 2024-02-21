@@ -53,10 +53,6 @@ app.whenReady().then(() => {
     event.returnValue = scenario;
   });
   
-  ipcMain.on('getSiteURL', (event) => {
-    event.returnValue = siteURL;
-  });
-  
   ipcMain.on('loadSiteURL', (event, args) => {
     mainWindow.loadURL(args);
   });
@@ -64,7 +60,10 @@ app.whenReady().then(() => {
   ipcMain.on('setSiteURL', (event, args) => {
     siteURL = args;
   });
-})
+
+  ipcMain.on('getSiteURL', (event) => {
+    event.returnValue = siteURL;
+  });
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
