@@ -1,12 +1,14 @@
 // main.js
 
 // Modules to control application life and create native browser window
-const { app, ipcMain, BrowserWindow } = require('electron')
+const { app, ipcMain, globalShortcut, BrowserWindow } = require('electron')
 
 const path = require('node:path')
 
 let mainWindow = null;
-let scenario = null;
+
+let scenario = 0;
+let pvuv = 0;
 let siteURL = 'file:///';
 
 const createWindow = () => {
@@ -37,7 +39,11 @@ const createWindow = () => {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
-  createWindow()
+    globalShortcut.register('Control+Shift+X', () => {
+      mainWindow.loadFile('index.html');
+    })
+}).then(() => {
+  createWindow();
 
   app.on('activate', () => {
     // On macOS it's common to re-create a window in the app when the
@@ -51,6 +57,14 @@ app.whenReady().then(() => {
   
   ipcMain.on('getScenario', (event) => {
     event.returnValue = scenario;
+  });
+
+  ipcMain.on('setPvuv', (event, args) => {
+    pvuv = args;
+  });
+  
+  ipcMain.on('getPvuv', (event) => {
+    event.returnValue = pvuv;
   });
   
   ipcMain.on('loadSiteURL', (event, args) => {

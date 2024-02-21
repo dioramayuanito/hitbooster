@@ -28,10 +28,12 @@
         console.log('hitbooster submitHitBooster hostname', hostname);
         var scenarioEl = document.getElementById('scenario');
         var scenarioVal = scenarioEl.options[scenarioEl.selectedIndex].value;
+        var pvuvEl = document.getElementById('pvuv');
+        var pvuvVal = pvuvEl.options[pvuvEl.selectedIndex].value;
         if ( (hostname.indexOf('detik.com') !== -1) ||
         (hostname.indexOf('cnnindonesia.com') !== -1) ||
         (hostname.indexOf('cnbcindonesia.com') !== -1) ||
-        (hostname.indexOf('cxo.id') !== -1) ||
+        (hostname.indexOf('cxomedia.id') !== -1) ||
         (hostname.indexOf('haibunda.com') !== -1) ||
         (hostname.indexOf('insertlive.com') !== -1) ||
         (hostname.indexOf('beautynesia.id') !== -1) ||
@@ -42,6 +44,7 @@
             let ipcRenderer = electron.ipcRenderer;
             ipcRenderer.send('setScenario', scenarioVal);
             ipcRenderer.send('setSiteURL', siteURL);
+            ipcRenderer.send('setPvuv', pvuvVal);
             ipcRenderer.send('loadSiteURL', siteURL);
           }
         } else {
@@ -65,7 +68,7 @@
             break;
           case 'cxo':
             console.log('hitbooster chooseSite cxo');
-            document.getElementById('siteURL').value = 'https://www.cxomedia.com';
+            document.getElementById('siteURL').value = 'https://www.cxomedia.id';
             break;
           case 'haibunda':
             console.log('hitbooster chooseSite haibunda');
@@ -118,8 +121,19 @@
         3. Choose a scenario
         <p>
           <select name="scenario" id="scenario">
-            <option value="0">Load Site URL then Refresh</option>
-            <option value="1">Load Site URL then Scroll Down slowly then Refresh</option>
+            <option value="0">Load Site URL then Reload - from load event</option>
+            <option value="1">Load Site URL then Scroll Down slowly then Reload - from load event</option>
+            <option value="2">Load Site URL then Reload - from DOMContentLoaded event</option>
+            <option value="3">Load Site URL then Scroll Down slowly then Reload - from DOMContentLoaded event</option>
+          </select>
+        </p>
+      </p>
+      <p>
+        4. Choose a hit for PV or UV
+        <p>
+          <select name="pvuv" id="pvuv">
+            <option value="0">PV</option>
+            <option value="1">UV</option>
           </select>
         </p>
       </p>
@@ -132,9 +146,9 @@
         Chromium <span id="chrome-version"></span>,
         and Electron <span id="electron-version"></span>.
       </p>
-      <!--<p>
-        Press Ctrl+Shift+M button to return to this Menu
-      </p>-->
+      <p>
+        Press Ctrl+Shift+X button to return to this Menu
+      </p>
     </form>
   </body>
 </html>
