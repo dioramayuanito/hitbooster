@@ -1,4 +1,6 @@
 // preload.js
+// renderer process
+const { ipcRenderer  } = require ("electron");
 
 // All the Node.js APIs are available in the preload process.
 // It has the same sandbox as a Chrome extension.
@@ -12,7 +14,3 @@ window.addEventListener('DOMContentLoaded', () => {
     replaceText(`${dependency}-version`, process.versions[dependency])
   }
 });
-
-function runme() {
-  location.href = "https://www.detik.com";
-};

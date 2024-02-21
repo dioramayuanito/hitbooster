@@ -17,6 +17,34 @@
       }
     </style>
     <script>
+      function getHostname(url) {
+        return new URL(url).hostname;
+      };
+
+      function submitHitBooster() {
+        var siteURL = document.getElementById('siteURL').value;
+        console.log('submitHitBooster siteURL', siteURL);
+        var hostname = getHostname(siteURL);
+        console.log('submitHitBooster hostname', hostname);
+        if ( (hostname.indexOf('detik.com') !== -1) ||
+        (hostname.indexOf('cnnindonesia.com') !== -1) ||
+        (hostname.indexOf('cnbcindonesia.com') !== -1) ||
+        (hostname.indexOf('cxo.id') !== -1) ||
+        (hostname.indexOf('haibunda.com') !== -1) ||
+        (hostname.indexOf('insertlive.com') !== -1) ||
+        (hostname.indexOf('beautynesia.id') !== -1) ||
+        (hostname.indexOf('femaledaily.com') !== -1) ) {
+          console.log('submitHitBooster loadURL', siteURL);
+          if (typeof window['require'] !== "undefined") {
+            let electron = window['require']("electron");
+            let ipcRenderer = electron.ipcRenderer;
+            ipcRenderer.send('loadURL', siteURL);
+          }
+        } else {
+          alert('Please use Site URL from detikNetwork Family !');
+        }
+      };
+
       function chooseSite(name) {
         switch(name) {
           case 'detik':
@@ -92,7 +120,7 @@
         </p>
       </p>
       <p>
-        <input type="button" value="SUBMIT">
+        <input type="button" value="SUBMIT" onclick="submitHitBooster();">
         <input type="reset" value="RESET">
       </p>
       <p>
