@@ -1,7 +1,7 @@
 {
-  "name": "browserbot",
+  "name": "hitbooster",
   "version": "1.0.0",
-  "description": "be a good browserbot",
+  "description": "Make a lot of Hits !",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -13,7 +13,7 @@
     "browser",
     "bot"
   ],
-  "author": "Diorama Yuanito",
+  "author": "Dio",
   "license": "MIT",
   "devDependencies": {
     "@electron-forge/cli": "^7.2.0",
