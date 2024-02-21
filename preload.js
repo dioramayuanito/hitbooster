@@ -21,8 +21,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
 let scrollLoop = 0;
 let scrollSIHandler = null;
-let scrollHeight = 200;
-let scrollInterval = 500;
+let scrollHeight = 250;
+let scrollInterval = 750;
 
 window.addEventListener('load', () => {
   let siteURL = location.href;
@@ -34,13 +34,13 @@ window.addEventListener('load', () => {
       console.log('hitbooster window onload scenario 0 reload');
       location.reload();
     } else if (scenario === '1') {
+      window.scrollTo({left:0, top:0});
       var scrollSIHandler = setInterval(() => {
         if ((scrollLoop * scrollHeight) < document.body.scrollHeight) {
-          window.scrollTo(0, scrollLoop * scrollHeight);
+          window.scrollTo({left:0, top:scrollLoop * scrollHeight, behavior:'smooth'});
           scrollLoop++;
           console.log('hitbooster window onload scenario 1 scroll', scrollLoop);
         } else {
-          window.scrollTo(0, 0);
           scrollLoop = 0;
           clearInterval(scrollSIHandler);
           console.log('hitbooster window onload scenario 1 end scroll');
