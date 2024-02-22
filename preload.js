@@ -53,9 +53,6 @@ window.addEventListener('DOMContentLoaded', () => {
         if (pvuv === '1') {
           clearStorage();
         }
-        if (pvuv === '1') {
-          clearStorage();
-        }
         ipcRenderer.send('incCounter');
         location.reload(true);
       }, reloadTimeout);
@@ -72,6 +69,9 @@ window.addEventListener('DOMContentLoaded', () => {
           console.log('hitbooster window DOMContentLoaded scenario 3 end scroll');
           setTimeout(() => {
             console.log('hitbooster window load scenario 3 reload');
+            if (pvuv === '1') {
+              clearStorage();
+            }
             ipcRenderer.send('incCounter');
             location.reload(true);
           }, reloadTimeout);
