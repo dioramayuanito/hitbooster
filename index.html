@@ -42,6 +42,7 @@
           if (typeof window['require'] !== "undefined") {
             let electron = window['require']("electron");
             let ipcRenderer = electron.ipcRenderer;
+            ipcRenderer.send('resetCounter');
             ipcRenderer.send('setScenario', scenarioVal);
             ipcRenderer.send('setSiteURL', siteURL);
             ipcRenderer.send('setPvuv', pvuvVal);
@@ -94,7 +95,7 @@
     </script>
   </head>
   <body">
-    <h1>hitbooster menu</h1>
+    <h1><span id="app-name"></span> v<span id="app-version"></span> menu</h1>
     <form name="frmHit">
       <p>
         1. Choose a site

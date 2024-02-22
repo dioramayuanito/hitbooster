@@ -7,6 +7,7 @@ const path = require('node:path')
 
 let mainWindow = null;
 
+let counter = 0;
 let scenario = 0;
 let pvuv = 0;
 let siteURL = 'file:///';
@@ -51,6 +52,20 @@ app.whenReady().then(() => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
   })
 
+
+  ipcMain.on('resetCounter', (event) => {
+    counter = 0;
+  });
+
+  ipcMain.on('incCounter', (event) => {
+    counter++;
+  });
+  
+  ipcMain.on('getCounter', (event) => {
+    event.returnValue = counter;
+  });
+
+
   ipcMain.on('setScenario', (event, args) => {
     scenario = args;
   });
@@ -58,6 +73,7 @@ app.whenReady().then(() => {
   ipcMain.on('getScenario', (event) => {
     event.returnValue = scenario;
   });
+
 
   ipcMain.on('setPvuv', (event, args) => {
     pvuv = args;
@@ -67,6 +83,7 @@ app.whenReady().then(() => {
     event.returnValue = pvuv;
   });
   
+
   ipcMain.on('loadSiteURL', (event, args) => {
     mainWindow.loadURL(args);
   });

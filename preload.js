@@ -34,10 +34,18 @@ window.addEventListener('DOMContentLoaded', () => {
     for (const dependency of ['chrome', 'node', 'electron']) {
       replaceText(`${dependency}-version`, process.versions[dependency])
     }
+    let name = require('./package.json').name;
+    const element = document.getElementById('app-name')
+    if (element) element.innerText = name;
+    let version = require('./package.json').version;
+    const element2 = document.getElementById('app-version')
+    if (element2) element2.innerText = version;
   } else {
     // for siteURL
     let scenario = ipcRenderer.sendSync('getScenario');
     let pvuv = ipcRenderer.sendSync('getPvuv');
+    let counter = ipcRenderer.sendSync('getCounter');
+    document.title = '(' + counter.toString() + ') ' + document.title;
     //console.log('hitbooster window DOMContentLoaded scenario', scenario);
     if (scenario === '2') {
       setTimeout(() => {
@@ -48,6 +56,7 @@ window.addEventListener('DOMContentLoaded', () => {
         if (pvuv === '1') {
           clearStorage();
         }
+        ipcRenderer.send('incCounter');
         location.reload(true);
       }, reloadTimeout);
     } else if (scenario === '3') {
@@ -63,6 +72,7 @@ window.addEventListener('DOMContentLoaded', () => {
           console.log('hitbooster window DOMContentLoaded scenario 3 end scroll');
           setTimeout(() => {
             console.log('hitbooster window load scenario 3 reload');
+            ipcRenderer.send('incCounter');
             location.reload(true);
           }, reloadTimeout);
         }
@@ -85,6 +95,7 @@ window.addEventListener('load', () => {
         if (pvuv === '1') {
           clearStorage();
         }
+        ipcRenderer.send('incCounter');
         location.reload(true);
       }, reloadTimeout);
     } else if (scenario === '1') {
@@ -103,6 +114,7 @@ window.addEventListener('load', () => {
             if (pvuv === '1') {
               clearStorage();
             }
+            ipcRenderer.send('incCounter');
             location.reload(true);
           }, reloadTimeout);
         }
