@@ -11,6 +11,7 @@ let counter = 0;
 let scenario = 0;
 let pvuv = 0;
 let siteURL = 'file:///';
+let videoMaxTime = 10;
 
 const createWindow = () => {
   // Create the browser window.
@@ -94,6 +95,14 @@ app.whenReady().then(() => {
 
   ipcMain.on('getSiteURL', (event) => {
     event.returnValue = siteURL;
+  });
+
+  ipcMain.on('setVideoMaxTime', (event, args) => {
+    videoMaxTime = args;
+  });
+
+  ipcMain.on('getVideoMaxTime', (event) => {
+    event.returnValue = videoMaxTime;
   });
 })
 

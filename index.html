@@ -30,6 +30,8 @@
         var scenarioVal = scenarioEl.options[scenarioEl.selectedIndex].value;
         var pvuvEl = document.getElementById('pvuv');
         var pvuvVal = pvuvEl.options[pvuvEl.selectedIndex].value;
+        var videoMaxTimeEl = document.getElementById('videoMaxTime');
+        var videoMaxTimeVal = videoMaxTimeEl.options[videoMaxTimeEl.selectedIndex].value;
         if ( (hostname.indexOf('detik.com') !== -1) ||
         (hostname.indexOf('cnnindonesia.com') !== -1) ||
         (hostname.indexOf('cnbcindonesia.com') !== -1) ||
@@ -46,6 +48,7 @@
             ipcRenderer.send('setScenario', scenarioVal);
             ipcRenderer.send('setSiteURL', siteURL);
             ipcRenderer.send('setPvuv', pvuvVal);
+            ipcRenderer.send('setVideoMaxTime', videoMaxTimeVal);
             ipcRenderer.send('loadSiteURL', siteURL);
           }
         } else {
@@ -135,6 +138,15 @@
           <select name="pvuv" id="pvuv">
             <option value="0" selected>PV</option>
             <option value="1">UV</option>
+          </select>
+        </p>
+      </p>
+      <p>
+        5. Choose a Video Content Max Time for Watching (if site is detikVideo Embed Player URL)
+        <p>
+          <select name="videoMaxTime" id="videoMaxTime">
+            <option value="10" selected>10 seconds</option>
+            <option value="20">20 seconds</option>
           </select>
         </p>
       </p>
