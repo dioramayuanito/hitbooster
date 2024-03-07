@@ -1,20 +1,8 @@
 {
   "name": "hitbooster",
   "version": "1.1.0",
-  "description": "Make a lot of Hits !",
+  "description": "Make alot of hits now !",
   "main": "main.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make"
-  },
-  "keywords": [
-    "browser",
-    "bot"
-  ],
-  "author": "Dio",
-  "license": "MIT",
   "devDependencies": {
     "@electron-forge/cli": "^7.3.0",
     "@electron-forge/maker-deb": "^7.3.0",
@@ -23,8 +11,16 @@
     "@electron-forge/maker-zip": "^7.3.0",
     "@electron-forge/plugin-auto-unpack-natives": "^7.3.0",
     "@electron-forge/plugin-fuses": "^7.3.0",
-    "electron": "^28.2.5"
+    "electron": "^29.1.0"
   },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
+  },
+  "author": "Dio",
+  "license": "MIT",
   "dependencies": {
     "electron-squirrel-startup": "^1.0.0"
   }
