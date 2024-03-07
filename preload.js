@@ -12,17 +12,18 @@ let pvuvDV = 0;
 let videoMaxTime = 10;
 let onDVReload = false;
 
-window.onDetikVideoLoaded = function(player) {
-  console.log('hitbooster onDetikVideoLoaded');
+
+window.dvLoaded = function(player) {
+  console.log('hitbooster dvLoaded');
   pvuvDV = ipcRenderer.sendSync('getPvuv');
-  console.log('hitbooster onDetikVideoLoaded pvuvDV', pvuvDV);
+  console.log('hitbooster dvLoaded pvuvDV', pvuvDV);
   videoMaxTime = ipcRenderer.sendSync('getVideoMaxTime');
-  console.log('hitbooster onDetikVideoLoaded videoMaxTime', videoMaxTime);
+  console.log('hitbooster dvLoaded videoMaxTime', videoMaxTime);
   player.on('timeupdate', function() {
     if (videoMaxTime <= player.currentTime()) {
       if (onDVReload === false) {
         onDVReload = true;
-        console.log('hitbooster onDetikVideoLoaded timeupdate reload');
+        console.log('hitbooster dvLoaded timeupdate reload');
         if (pvuvDV === '1') {
           clearStorage();
         }
@@ -30,6 +31,20 @@ window.onDetikVideoLoaded = function(player) {
       }
     }
   });
+}
+
+/*window.onDetikVideoLoaded = function(player) {
+  window.dvLoaded(player);
+}*/
+
+window.onDetikVideoParams = function() {
+  console.log('hitbooster onDetikVideoParams is working');
+  let params = detikVideo.scriptSrcParams();
+  if ((detikVideo.vars.scriptSrcParams !== null) && (typeof detikVideo.vars.scriptSrcParams === 'object')) {
+    console.log('hitbooster onDetikVideoParams is loading dvLoaded function');
+    params.detikVideoLoadedCallback = window.dvLoaded;
+  }
+  return params;
 }
 
 function clearStorage() {
